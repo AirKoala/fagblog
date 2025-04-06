@@ -6,7 +6,6 @@ import (
 )
 
 type Route struct {
-	Method      string
 	Pattern     string
 	Handler     http.HandlerFunc
 	Middlewares []middleware.Middleware

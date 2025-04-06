@@ -8,8 +8,7 @@ import (
 
 func Home(context *fagblog.Context) Route {
 	return Route{
-		Method:  "GET",
-		Pattern: "/",
+		Pattern: "GET /{$}",
 		Handler: func(w http.ResponseWriter, r *http.Request) {
 
 			err := context.Templates.ExecuteTemplate(w, "home.html", context)

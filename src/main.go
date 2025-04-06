@@ -6,9 +6,9 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/airkoala/fagblog/src/fagblog"
 	"github.com/airkoala/fagblog/src/middleware"
 	"github.com/airkoala/fagblog/src/route"
-	"github.com/airkoala/fagblog/src/fagblog"
 )
 
 func main() {
@@ -34,7 +34,7 @@ func main() {
 
 	context := fagblog.Context{
 		BlogMetadata: blogMetadata,
-		Templates: tmpl,
+		Templates:    tmpl,
 	}
 
 	handle(mux, route.Home(&context))
@@ -48,13 +48,10 @@ func main() {
 
 func handle(s *http.ServeMux, route route.Route) {
 	middlewares := route.Middlewares
-	if route.Method != "" {
-		middlewares = append(middlewares, middleware.Method(route.Method))
-	}
 
 	middlewares = append(middlewares, middleware.Logging())
 
-	log.Printf("Registering %s %s\n", route.Method, route.Pattern)
+	log.Printf("Registering %s\n", route.Pattern)
 
 	s.HandleFunc(route.Pattern, middleware.Chain(route.Handler, middlewares...))
 }

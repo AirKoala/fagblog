@@ -8,8 +8,7 @@ import (
 func Static(context *fagblog.Context, config *fagblog.Config) Route {
 	fs := http.FileServer(http.Dir(config.ContentDir))
 	return Route{
-		Method:  "GET",
-		Pattern: "/static/",
+		Pattern: "GET /static/",
 		Handler: http.StripPrefix("/static/", fs).ServeHTTP,
 	}
 }
