@@ -39,6 +39,7 @@ func main() {
 
 	handle(mux, route.Home(&context))
 	handle(mux, route.Static(&context, &config))
+	handle(mux, route.BlogPost(&context, &config))
 
 	log.Printf("Starting server on :%d", config.Port)
 	err = http.ListenAndServe(fmt.Sprintf(":%d", config.Port), mux)

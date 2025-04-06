@@ -1,0 +1,10 @@
+{{ define "content" }}
+<div>
+    <h1>{{ .Post.Title }}</h1>
+    <p>Published on <time datetime="{{ .Post.Timestamp }}" class="local-time"></time></p>
+    {{ .Post.Content }}
+</div>
+
+{{ end }}
+
+{{ template "base.html" . }}
