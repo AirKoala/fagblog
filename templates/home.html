@@ -1,0 +1,9 @@
+{{ define "content" }}
+<div class="author-info">
+    <img src="{{ .BlogMetadata.Author.AvatarHref }}" alt="{{ .BlogMetadata.Author.Name }}'s Avatar" class="avatar">
+    <h2>{{ .BlogMetadata.Author.Name }}</h2>
+    <p>{{ .BlogMetadata.Author.Blurb }}</p>
+</div>
+{{ end }}
+
+{{ template "base.html" . }}
