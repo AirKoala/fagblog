@@ -10,8 +10,7 @@ func Home(context *fagblog.Context) Route {
 	return Route{
 		Pattern: "GET /{$}",
 		Handler: func(w http.ResponseWriter, r *http.Request) {
-
-			err := context.Templates.ExecuteTemplate(w, "home.html", Data{Context: context})
+			err := context.Templates["home.html"].Execute(w, Data{Context: context})
 
 			if err != nil {
 				log.Printf("Error executing template: %v\n", err)

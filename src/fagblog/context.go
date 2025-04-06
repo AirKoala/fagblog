@@ -4,5 +4,5 @@ import "html/template"
 
 type Context struct {
 	BlogMetadata BlogMetadata
-	Templates *template.Template
+	Templates map[string]*template.Template
 }

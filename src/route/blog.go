@@ -35,8 +35,8 @@ func BlogPost(context *fagblog.Context, config *fagblog.Config) Route {
 
 			// tmpl := template.Must(template.New("blogpost.html").ParseFiles("templates/blogpost.html", "templates/base.html", "templates/header.html", "templates/footer.html"))
 
-			// err = tmpl.Execute(w, BlogData{Context: context, Post: post})
-			err = context.Templates.ExecuteTemplate(w, "blogpost.html", BlogData{Context: context, Post: post})
+			err = context.Templates["blogpost.html"].Execute(w, BlogData{Context: context, Post: post})
+			// err = context.Templates.ExecuteTemplate(w, "blogpost.html", BlogData{Context: context, Post: post})
 
 			if err != nil {
 				log.Printf("Error executing template: %v\n", err)
