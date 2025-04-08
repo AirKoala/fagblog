@@ -1,4 +1,8 @@
-<footer>
-    <p>&copy; {{ .Context.BlogMetadata.Author.Name }}</p>
-    <p>Powered by <a href="https://github.com/airkoala/fagblog">File-Access Go Blog</a></p>
+<footer class="footer">
+    <div class="footer-left">{{ template "license-notice.html" . }}</div>
+    <div class="footer-right">
+        Powered by
+        <a href="https://github.com/airkoala/fagblog">airkoala/FAGBlog</a>
+        (<a href="https://raw.githubusercontent.com/airkoala/fagblog/refs/heads/master/LICENSE">AGPLv3</a>)
+    </div>
 </footer>

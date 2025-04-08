@@ -3,6 +3,6 @@ package fagblog
 import "html/template"
 
 type Context struct {
-	BlogMetadata BlogMetadata
+	SiteMetadata SiteMetadata
 	Templates map[string]*template.Template
 }

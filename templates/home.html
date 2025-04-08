@@ -1,9 +1,29 @@
 {{ define "content" }}
-<div class="author-info">
-    <img src="{{ .Context.BlogMetadata.Author.AvatarHref }}" alt="{{ .Context.BlogMetadata.Author.Name }}'s Avatar" class="avatar">
-    <h2>{{ .Context.BlogMetadata.Author.Name }}</h2>
-    <p>{{ .Context.BlogMetadata.Author.Blurb }}</p>
-</div>
+<section class="profile">
+    <img src="{{ .Context.SiteMetadata.Author.AvatarHref }}" alt="{{ .Context.SiteMetadata.Author.Name }}'s Avatar"
+        class="avatar">
+    <div class="profile-info">
+        <h2 class="name">{{ .Context.SiteMetadata.Author.Name }}</h2>
+        <p class="bio">{{ .Context.SiteMetadata.Author.Blurb }}</p>
+    </div>
+</section>
+
+<section class="blog-posts">
+    <article class="post">
+        <h3 class="post-title">Placeholder Blog Post Title 1</h3>
+        <p class="post-summary">This is a short summary of the first post. It gives a teaser of what the article is
+            about...</p>
+    </article>
+    <article class="post">
+        <h3 class="post-title">Placeholder Blog Post Title 2</h3>
+        <p class="post-summary">Another blog post summary goes here. It might talk about something cool, interesting, or
+            useful...</p>
+    </article>
+    <article class="post">
+        <h3 class="post-title">Placeholder Blog Post Title 3</h3>
+        <p class="post-summary">This is just more filler content for now. Replace it with your awesome writing!</p>
+    </article>
+</section>
 {{ end }}
 
 {{ template "base.html" . }}

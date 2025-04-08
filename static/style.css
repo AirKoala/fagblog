@@ -1,0 +1,142 @@
+:root {
+  --font-base: 'Segoe UI', sans-serif;
+  --font-size-base: 16px;
+  --font-size-title: 1.5rem;
+  --font-size-subtitle: 1.25rem;
+  --color-text: #333;
+  --color-link: #0077cc;
+  --color-bg: #f9f9f9;
+  --color-border: #ddd;
+  --spacing: 1rem;
+  --avatar-size: 150px;
+}
+
+.header {
+  display: flex;
+  position: sticky;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing) 2rem;
+  background-color: white;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.header-title {
+  font-size: var(--font-size-title);
+  margin: 0;
+  font-weight: bold;
+}
+
+.header-nav .nav-list {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.header-nav .nav-list li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+.header-nav .nav-list li a:hover {
+  color: #0077cc;
+}
+
+body {
+  font-family: var(--font-base);
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Profile */
+.profile {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing);
+  margin-bottom: 2rem;
+}
+
+.avatar {
+  width: var(--avatar-size);
+  height: var(--avatar-size);
+  border-radius: 50%;
+  border: 2px solid var(--color-border);
+}
+
+.profile-info .name {
+  margin: 0;
+  font-size: var(--font-size-subtitle);
+}
+
+.bio {
+  margin: 0.25rem 0 0;
+  font-size: 0.95rem;
+}
+
+/* Blog Posts */
+.blog-posts {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.post-title {
+  margin: 0 0 0.25rem;
+  font-size: 1.1rem;
+  color: var(--color-link);
+}
+
+.post-summary {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+/* Footer */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing) 2rem;
+  background-color: #f0f0f0;
+  border-top: 1px solid var(--color-border);
+  font-size: 0.9rem;
+}
+
+/* Blog Post */
+.post-content {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.post-heading {
+  font-size: var(--font-size-title);
+  margin-bottom: 0.25rem;
+}
+
+.post-meta {
+  color: #777;
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+}
+
+.post-body p {
+  line-height: 1.6;
+  margin-bottom: 1.2rem;
+}

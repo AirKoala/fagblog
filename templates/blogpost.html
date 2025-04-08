@@ -1,10 +1,25 @@
 {{ define "content" }}
 <div>
-    <h1>{{ .Post.Title }}</h1>
-    <p>Published on <time datetime="{{ .Post.Timestamp }}" class="local-time"></time></p>
-    {{ .Post.Content }}
+    <h1 class="post-heading">{{ .Post.Title }}</h1>
+    <div class="post-meta">
+        Published on <time datetime="{{ .Post.Timestamp.UTC }}" class="local-time"></time>.
+    </div>
+
+    <article class="post-body">
+        {{ .Post.Content }}
+    </article>
 </div>
 
+<script>
+    // Hydrate datetime elements.
+    document.querySelectorAll('time.local-time').forEach(el => {
+        const utcTime = new Date(el.getAttribute('datetime'));
+        el.textContent = utcTime.toLocaleString(undefined, {
+            dateStyle: 'medium',
+            timeStyle: 'short'
+        });
+    });
+</script>
 {{ end }}
 
 {{ template "base.html" . }}

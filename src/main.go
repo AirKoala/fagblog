@@ -20,7 +20,7 @@ func main() {
 		ContentDir:  "content",
 		StaticDir:   "static",
 	}
-	blogMetadata, err := fagblog.BlogMetadataFromToml(config.ContentDir + "/meta.toml")
+	blogMetadata, err := fagblog.SiteMetadataFromToml(config.ContentDir + "/meta.toml")
 
 	if err != nil {
 		log.Fatalf("Error loading blog metadata: %v", err)
@@ -29,7 +29,7 @@ func main() {
 	mux := http.NewServeMux()
 
 	context := fagblog.Context{
-		BlogMetadata: blogMetadata,
+		SiteMetadata: blogMetadata,
 		Templates:    loadTemplates(config.TemplateDir),
 	}
 

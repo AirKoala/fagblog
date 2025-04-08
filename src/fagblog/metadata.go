@@ -11,13 +11,13 @@ type Author struct {
 	Blurb      string
 }
 
-type BlogMetadata struct {
+type SiteMetadata struct {
 	Title  string
 	Author Author
 }
 
-func BlogMetadataFromToml(path string) (BlogMetadata, error) {
-	parsedMetadata := BlogMetadata{}
+func SiteMetadataFromToml(path string) (SiteMetadata, error) {
+	parsedMetadata := SiteMetadata{}
 	_, err := toml.DecodeFile(path, &parsedMetadata)
 
 	if err != nil {
