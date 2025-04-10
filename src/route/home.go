@@ -6,11 +6,39 @@ import (
 	"net/http"
 )
 
-func Home(context *fagblog.Context) Route {
+type HomeData struct {
+	Context *fagblog.Context
+	Posts   map[string]fagblog.BlogPostMetadata
+}
+
+func Home(context *fagblog.Context, config *fagblog.Config) Route {
 	return Route{
 		Pattern: "GET /{$}",
 		Handler: func(w http.ResponseWriter, r *http.Request) {
-			err := context.Templates["home.html"].Execute(w, Data{Context: context})
+			postNames, err := fagblog.GetPosts(config.ContentDir + "/blog")
+
+			if err != nil {
+				log.Printf("Error getting posts: %v\n", err)
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+
+			homeData := HomeData {
+				Context: context,
+				Posts: make(map[string]fagblog.BlogPostMetadata, len(postNames)),
+			}
+
+			for _, n := range postNames {
+				metadata, err := fagblog.GetPostMetadata(config.ContentDir + "/blog", n)
+				if err != nil {
+					log.Printf("Error getting post metadata: %v\n", err)
+					http.Error(w, err.Error(), http.StatusInternalServerError)
+					return
+				}
+				homeData.Posts[n] = metadata
+			}
+
+			err = context.Templates["home.html"].Execute(w, homeData)
 
 			if err != nil {
 				log.Printf("Error executing template: %v\n", err)

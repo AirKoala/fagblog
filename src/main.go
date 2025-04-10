@@ -33,14 +33,14 @@ func main() {
 		Templates:    loadTemplates(config.TemplateDir),
 	}
 
-	handle(mux, route.Home(&context))
+	handle(mux, route.Home(&context, &config))
 	handle(mux, route.Static(&context, &config))
 	handle(mux, route.BlogPost(&context, &config))
 
 	log.Printf("Starting server on :%d", config.Port)
 	err = http.ListenAndServe(fmt.Sprintf(":%d", config.Port), mux)
 
-	log.Println("Server stopped: ", err)
+	log.Fatalln("Server stopped: ", err)
 }
 
 func handle(s *http.ServeMux, route route.Route) {

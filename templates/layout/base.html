@@ -28,6 +28,17 @@
     </main>
 
     {{ template "footer.html" . }}
+
+    <script>
+        // Hydrate datetime elements.
+        document.querySelectorAll('time.local-time').forEach(el => {
+            const utcTime = new Date(el.getAttribute('datetime'));
+            el.textContent = utcTime.toLocaleString(undefined, {
+                dateStyle: 'medium',
+                timeStyle: 'short'
+            });
+        });
+    </script>
 </body>
 
 </html>

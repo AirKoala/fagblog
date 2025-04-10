@@ -9,20 +9,21 @@
 </section>
 
 <section class="blog-posts">
+    <h1>Posts</h1>
+    {{ range $name, $meta := .Posts }}
     <article class="post">
-        <h3 class="post-title">Placeholder Blog Post Title 1</h3>
-        <p class="post-summary">This is a short summary of the first post. It gives a teaser of what the article is
-            about...</p>
+        <a href="/blog/{{$name}}">
+            <h3 class="post-title">{{ $meta.Title }}</h3>
+        </a>
+        <div class="post-meta">
+            <time datetime="{{ $meta.Timestamp.UTC }}" class="local-time"></time>.
+            {{ if $meta.Summary }}
+            <br>
+            {{ $meta.Summary }}
+            {{ end }}
+        </div>
     </article>
-    <article class="post">
-        <h3 class="post-title">Placeholder Blog Post Title 2</h3>
-        <p class="post-summary">Another blog post summary goes here. It might talk about something cool, interesting, or
-            useful...</p>
-    </article>
-    <article class="post">
-        <h3 class="post-title">Placeholder Blog Post Title 3</h3>
-        <p class="post-summary">This is just more filler content for now. Replace it with your awesome writing!</p>
-    </article>
+    {{ end }}
 </section>
 {{ end }}
 
