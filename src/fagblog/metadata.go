@@ -5,6 +5,11 @@ import (
 	"log"
 )
 
+type HeaderLink struct {
+	Name string
+	Href string
+}
+
 type Author struct {
 	Name       string
 	AvatarHref string
@@ -12,8 +17,9 @@ type Author struct {
 }
 
 type SiteMetadata struct {
-	Title  string
-	Author Author
+	Title       string
+	Author      Author
+	HeaderLinks []HeaderLink
 }
 
 func SiteMetadataFromToml(path string) (SiteMetadata, error) {
