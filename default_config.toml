@@ -1,0 +1,4 @@
+Port = 8000
+TemplateDir = "/usr/local/share/fagblog/templates"
+StaticDir = "/usr/local/share/fagblog/static"
+ContentDir = "/var/lib/fagblog"

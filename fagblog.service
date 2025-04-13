@@ -1,0 +1,25 @@
+[Unit]
+Description=File-Access Go Blog Server
+After=network-online.target
+
+[Service]
+Type=simple
+User=fagblog
+Group=fagblog
+ExecStart=/usr/local/bin/fagblog
+; WorkingDirectory=/var/fagblog/
+Restart=on-failure
+RestartSec=5s
+
+# Security hardening (optional but recommended)
+ProtectSystem=full
+ProtectHome=true
+NoNewPrivileges=true
+PrivateTmp=true
+; ReadWritePaths=/srv/blogengine /var/log/blogengine
+ReadOnlyPaths=/etc/blogengine /usr/share/blogengine /var/lib/fagblog
+CapabilityBoundingSet=
+AmbientCapabilities=
+
+[Install]
+WantedBy=multi-user.target

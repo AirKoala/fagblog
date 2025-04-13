@@ -13,13 +13,11 @@ import (
 )
 
 func main() {
-	// TODO: Load config from file
-	config := fagblog.Config{
-		Port:        8000,
-		TemplateDir: "templates",
-		ContentDir:  "content",
-		StaticDir:   "static",
+	config, err := fagblog.LoadConfig()
+	if err != nil {
+		log.Fatalf("Error loading config: %v", err)
 	}
+
 	blogMetadata, err := fagblog.SiteMetadataFromToml(config.ContentDir + "/meta.toml")
 
 	if err != nil {
