@@ -16,7 +16,7 @@ SERVICE_PATH=/etc/systemd/system/multi-user.target.wants/$(PROJECT_NAME).service
 
 PACKAGE_INCLUDE=static/ templates/ Makefile $(BINARY_NAME) $(PROJECT_NAME).service LICENSE default_config.toml
 
-.PHONY: run build build-cross install clean
+.PHONY: run build install uninstall clean package
 
 ## Run the project
 run:
@@ -25,7 +25,7 @@ run:
 ## Build the project
 build: $(BINARY_NAME)
 
-$(BINARY_NAME):
+$(BINARY_NAME): $(wildcard *.go)
 	GOOS=$(GOOS) GOARCH=$(GOARCH) go build -o $(BINARY_NAME) .
 
 ## Clean build files
@@ -33,7 +33,7 @@ clean:
 	rm -f $(PROJECT_NAME)-*
 
 ## Install the binary and resource files
-install: $(BINARY_NAME)
+install: $(PACKAGE_INCLUDE)
 	# Create user and group if they don't exist
 	@if ! id -u $(PROJECT_NAME) >/dev/null 2>&1; then \
 		echo "Creating user: $(PROJECT_NAME)"; \
@@ -79,6 +79,6 @@ uninstall:
 	fi
 
 ## Create an xzipped tarball
-package: build
+package: $(PACKAGE_INCLUDE)
 	# Create a tarball with the binary and resource files
 	tar -cJvf $(BINARY_NAME).tar.xz $(PACKAGE_INCLUDE)
