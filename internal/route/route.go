@@ -3,8 +3,8 @@ package route
 import (
 	"net/http"
 
-	"github.com/airkoala/fagblog/src/fagblog"
-	"github.com/airkoala/fagblog/src/middleware"
+	"github.com/airkoala/fagblog/internal/fagblog"
+	"github.com/airkoala/fagblog/internal/middleware"
 )
 
 type Data struct {

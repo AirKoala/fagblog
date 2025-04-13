@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/airkoala/fagblog/src/fagblog"
+	"github.com/airkoala/fagblog/internal/fagblog"
 )
 
 type BlogData struct {

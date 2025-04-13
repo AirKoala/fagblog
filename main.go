@@ -7,9 +7,9 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/airkoala/fagblog/src/fagblog"
-	"github.com/airkoala/fagblog/src/middleware"
-	"github.com/airkoala/fagblog/src/route"
+	"github.com/airkoala/fagblog/internal/fagblog"
+	"github.com/airkoala/fagblog/internal/middleware"
+	"github.com/airkoala/fagblog/internal/route"
 )
 
 func main() {

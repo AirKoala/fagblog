@@ -1,7 +1,7 @@
 package route
 
 import (
-	"github.com/airkoala/fagblog/src/fagblog"
+	"github.com/airkoala/fagblog/internal/fagblog"
 	"net/http"
 )
 
