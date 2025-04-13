@@ -17,9 +17,11 @@ ProtectHome=true
 NoNewPrivileges=true
 PrivateTmp=true
 ; ReadWritePaths=/srv/blogengine /var/log/blogengine
-ReadOnlyPaths=/etc/blogengine /usr/share/blogengine /var/lib/fagblog
+ReadOnlyPaths=/etc/blogengine /usr/local/share/fagblog /var/lib/fagblog
 CapabilityBoundingSet=
 AmbientCapabilities=
 
 [Install]
 WantedBy=multi-user.target
+
+# vim:ft=systemd
