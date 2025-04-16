@@ -197,8 +197,36 @@ main {
   color: var(--color-light4);
 }
 
-/* .post-body p { */
-/*   margin-top: 2rem; */
-/*   line-height: 1.6; */
-/*   margin-bottom: 1.2rem; */
-/* } */
+.post-body {
+  margin-top: 2rem;
+  /* line-height: 1.6; */
+  margin-bottom: 1.2rem;
+}
+
+/* Table of Content */
+.table-of-content {
+  list-style: none;
+}
+
+/* SCSS is for nerds */
+.toc-level-0 {
+  padding-left: 0rem;
+}
+.toc-level-1 {
+  padding-left: 1rem;
+}
+.toc-level-2 {
+  padding-left: 2rem;
+}
+.toc-level-3 {
+  padding-left: 3rem;
+}
+.toc-level-4 {
+  padding-left: 4rem;
+}
+.toc-level-5 {
+  padding-left: 5rem;
+}
+.toc-level-6 {
+  padding-left: 6rem;
+}

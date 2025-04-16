@@ -1,14 +1,23 @@
 package fagblog
 
 import (
+	"bytes"
 	"errors"
 	"html/template"
 	"log"
 	"os"
+	"slices"
+	"time"
 
 	"github.com/BurntSushi/toml"
-	"time"
+	"golang.org/x/net/html"
 )
+
+type Heading struct {
+	Title string
+	Level uint
+	Id    string
+}
 
 type BlogPostMetadata struct {
 	Title     string
@@ -19,6 +28,7 @@ type BlogPostMetadata struct {
 type BlogPost struct {
 	Metadata BlogPostMetadata
 	Content  template.HTML
+	Headings []Heading
 }
 
 // Parses a TOML file and returns a BlogPost struct.
@@ -40,12 +50,23 @@ func GetPost(dirPath string, postName string) (BlogPost, error) {
 
 	post.Metadata = metadata
 
-	content, err := os.ReadFile(postDirPath + "/index.html")
+	// content, err := os.ReadFile(postDirPath + "/index.html")
+	// if err != nil {
+	// 	log.Printf("Error reading file %s: %v", postDirPath+"/index.html", err)
+	// }
+
+	content, headings, err := getPostContentAndHeadings(postDirPath + "/index.html")
 	if err != nil {
 		log.Printf("Error reading file %s: %v", postDirPath+"/index.html", err)
+		return post, err
 	}
 
 	post.Content = template.HTML(content)
+	post.Headings = headings
+
+	for _, h := range headings {
+		log.Printf("Heading: %s, Level: %d, Id: %s", h.Title, h.Level, h.Id)
+	}
 
 	return post, nil
 }
@@ -96,4 +117,111 @@ func GetPosts(dirPath string) ([]string, error) {
 	}
 
 	return posts, nil
+}
+
+// Gets the parsed and formatted post content with headings.
+func getPostContentAndHeadings(path string) (string, []Heading, error) {
+	file, err := os.Open(path)
+	if err != nil {
+		log.Printf("Error opening file %s: %v", path, err)
+		return "", []Heading{}, err
+	}
+	defer file.Close()
+
+	doc, err := html.Parse(file)
+	if err != nil {
+		log.Printf("Error parsing HTML file %s: %v", path, err)
+		return "", []Heading{}, err
+	}
+
+	// This also inserts ids for hX tags.
+	// Yes its janky deal with it.
+	headings, err := createToc(doc)
+	if err != nil {
+		log.Printf("Error creating table of contents: %v", err)
+		return "", []Heading{}, err
+	}
+
+	var buf bytes.Buffer;
+	html.Render(&buf, doc)
+
+	return buf.String(), headings, nil
+}
+
+func createToc(doc *html.Node) ([]Heading, error) {
+	headings := make([]Heading, 0)
+	headingTags := []string{"h1", "h2", "h3", "h4", "h5", "h6"}
+	hNodes := make([]*html.Node, 0)
+
+	// Recursively walk child nodes and collect headings.
+	for n := range doc.Descendants() {
+		// Skip non element nodes.
+		if n.Type != html.ElementNode {
+			continue
+		}
+
+		if slices.Contains(headingTags, n.Data) {
+			hNodes = append(hNodes, n)
+		}
+	}
+
+	for _, n := range hNodes {
+		id, err := getOrCreateId(n)
+		if err != nil {
+			log.Printf("Error getting or creating id: %v", err)
+			continue
+		}
+
+		headings = append(headings, Heading{
+			Title: n.FirstChild.Data, // FirstChild is guaranteed to be a TextNode
+			Id:    id,
+
+			// Cast is safe since tag is guaranteed to be in array.
+			Level: uint(slices.Index(headingTags, n.Data)),
+		})
+	}
+
+	normaliseHeadings(headings)
+
+	return headings, nil
+}
+
+// Returns the id of a node or creates a url encoded id from the node's content and adds it to the node.
+func getOrCreateId(node *html.Node) (string, error) {
+	for _, attr := range node.Attr {
+		// Check if an id is already present or not
+		if attr.Key == "id" {
+			return attr.Val, nil
+		}
+	}
+
+	if node.FirstChild.Type != html.TextNode {
+		return "", errors.New("First child is not a text node")
+	}
+
+	id := template.URLQueryEscaper(node.FirstChild.Data)
+	node.Attr = append(node.Attr, html.Attribute{Key: "id", Val: id})
+
+	return id, nil
+}
+
+// Normalises heading levels to be 0, 1, 2, etc.
+func normaliseHeadings(headings []Heading) {
+	// Get a set of levels
+	uniques := make(map[uint]bool)
+	for _, h := range headings {
+		uniques[h.Level] = true
+	}
+
+	// Store levels into a sorted slice
+	levels := make([]uint, 0, len(uniques))
+	for k := range uniques {
+		levels = append(levels, k)
+	}
+	slices.Sort(levels)
+
+	// Set heading levels to normalised values.
+	for _, h := range headings {
+		h.Level = uint(slices.Index(levels, h.Level))
+	}
 }
