@@ -56,6 +56,9 @@ install: $(PACKAGE_INCLUDE)
 	chown -R root:$(PROJECT_NAME) $(DATADIR)
 	chmod -R 644 $(DATADIR)
 
+	# Set all directories to be searchable.
+	chmod ug+x $(find $DATADIR -type d)
+
 	install -d -m 750 -o root -g $(PROJECT_NAME) $(CONFIGDIR)
 	install -m 640 -o root -g $(PROJECT_NAME) default_config.toml $(CONFIGDIR)/config.toml
 
