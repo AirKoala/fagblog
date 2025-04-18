@@ -1,8 +1,10 @@
 package fagblog
 
 import (
-	"github.com/BurntSushi/toml"
+	"html/template"
 	"log"
+
+	"github.com/BurntSushi/toml"
 )
 
 type HeaderLink struct {
@@ -13,7 +15,7 @@ type HeaderLink struct {
 type Author struct {
 	Name       string
 	AvatarHref string
-	Blurb      string
+	Blurb      template.HTML
 }
 
 type SiteMetadata struct {

@@ -230,3 +230,12 @@ main {
 .toc-level-6 {
   padding-left: 6rem;
 }
+
+code {
+  font-family: var(--font-monospace);
+  /* font-size: var(--font-size-base); */
+  color: var(--color-light0_hard);
+  background-color: var(--color-dark1);
+  padding: 0 0.1em;
+  margin: 0 0.1em;
+}
