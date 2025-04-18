@@ -33,6 +33,7 @@ func main() {
 
 	handle(mux, route.Home(&context, &config))
 	handle(mux, route.Static(&context, &config))
+	handle(mux, route.Assets(&context, &config))
 	handle(mux, route.BlogPost(&context, &config))
 
 	log.Printf("Starting server on :%d", config.Port)

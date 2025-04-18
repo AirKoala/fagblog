@@ -1,3 +1,9 @@
+{{ define "head" }}
+<meta property="og:title" content="{{ .Context.SiteMetadata.Title }}" />
+<meta property="og:url" content="https://{{ .Context.SiteMetadata.Hostname }}{{ .Url }}" />
+{{ end }}
+
+
 {{ define "content" }}
 <section class="profile">
     <img src="{{ .Context.SiteMetadata.Author.AvatarHref }}" alt="{{ .Context.SiteMetadata.Author.Name }}'s Avatar"

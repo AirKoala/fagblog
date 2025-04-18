@@ -9,6 +9,7 @@ import (
 
 type Data struct {
 	Context *fagblog.Context
+	Url     string
 }
 
 type Route struct {

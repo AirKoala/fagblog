@@ -20,7 +20,9 @@ type Author struct {
 
 type SiteMetadata struct {
 	Title       string
+	FaviconHref string
 	Author      Author
+	Hostname    string
 	HeaderLinks []HeaderLink
 }
 

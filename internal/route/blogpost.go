@@ -13,6 +13,7 @@ import (
 type BlogData struct {
 	Context *fagblog.Context
 	Post    fagblog.BlogPost
+	Url     string
 }
 
 func BlogPost(context *fagblog.Context, config *fagblog.Config) Route {
@@ -35,7 +36,11 @@ func BlogPost(context *fagblog.Context, config *fagblog.Config) Route {
 
 			// tmpl := template.Must(template.New("blogpost.html").ParseFiles("templates/blogpost.html", "templates/base.html", "templates/header.html", "templates/footer.html"))
 
-			err = context.Templates["blogpost.html"].Execute(w, BlogData{Context: context, Post: post})
+			err = context.Templates["blogpost.html"].Execute(w, BlogData{
+				Context: context,
+				Post:    post,
+				Url:     r.URL.String(),
+			})
 			// err = context.Templates.ExecuteTemplate(w, "blogpost.html", BlogData{Context: context, Post: post})
 
 			if err != nil {

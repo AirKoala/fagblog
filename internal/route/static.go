@@ -12,3 +12,11 @@ func Static(context *fagblog.Context, config *fagblog.Config) Route {
 		Handler: http.StripPrefix("/static/", fs).ServeHTTP,
 	}
 }
+
+func Assets(context *fagblog.Context, config *fagblog.Config) Route {
+	fs := http.FileServer(http.Dir(config.ContentDir + "/assets"))
+	return Route{
+		Pattern: "GET /assets/",
+		Handler: http.StripPrefix("/assets/", fs).ServeHTTP,
+	}
+}

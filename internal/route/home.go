@@ -9,6 +9,7 @@ import (
 type HomeData struct {
 	Context *fagblog.Context
 	Posts   map[string]fagblog.BlogPostMetadata
+	Url     string
 }
 
 func Home(context *fagblog.Context, config *fagblog.Config) Route {
@@ -23,13 +24,14 @@ func Home(context *fagblog.Context, config *fagblog.Config) Route {
 				return
 			}
 
-			homeData := HomeData {
+			homeData := HomeData{
 				Context: context,
-				Posts: make(map[string]fagblog.BlogPostMetadata, len(postNames)),
+				Posts:   make(map[string]fagblog.BlogPostMetadata, len(postNames)),
+				Url:     r.URL.String(),
 			}
 
 			for _, n := range postNames {
-				metadata, err := fagblog.GetPostMetadata(config.ContentDir + "/blog", n)
+				metadata, err := fagblog.GetPostMetadata(config.ContentDir+"/blog", n)
 				if err != nil {
 					log.Printf("Error getting post metadata: %v\n", err)
 					http.Error(w, err.Error(), http.StatusInternalServerError)
