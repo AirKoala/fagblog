@@ -9,7 +9,7 @@
 {{ end }}
 
 {{ define "title" }}
-{{ .Post.Metadata.Title }}
+{{ .Context.SiteMetadata.Title }} | {{ .Post.Metadata.Title }}
 {{ end }}
 
 {{ define "content" }}

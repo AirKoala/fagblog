@@ -17,8 +17,8 @@
         rel="stylesheet">
 
     <title>
-        {{ .Context.SiteMetadata.Title }} | 
         {{ block "title" . }}
+        {{ .Context.SiteMetadata.Title }}
         {{ end }}
     </title>
     <link href="/static/style.css" rel="stylesheet">
