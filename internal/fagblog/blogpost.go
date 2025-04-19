@@ -64,9 +64,10 @@ func GetPost(dirPath string, postName string) (BlogPost, error) {
 	post.Content = template.HTML(content)
 	post.Headings = headings
 
-	for _, h := range headings {
-		log.Printf("Heading: %s, Level: %d, Id: %s", h.Title, h.Level, h.Id)
-	}
+	// // Debug
+	// for _, h := range headings {
+	// 	log.Printf("Heading: %s, Level: %d, Id: %s", h.Title, h.Level, h.Id)
+	// }
 
 	return post, nil
 }

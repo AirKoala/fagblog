@@ -14,20 +14,32 @@
     Published on <time datetime="{{ .Post.Metadata.Timestamp.UTC }}" class="local-time"></time>.
 </div>
 
-<!-- Table of content -->
-<ol class="table-of-content">
-    {{ range $h := .Post.Headings }}
-    <a href="#{{ $h.Id }}">
-        <li class="toc-item toc-level-{{ $h.Level }}">
-            {{ $h.Title }}
-        </li>
-    </a>
-    {{ end }}
-</ol>
-
 <article class="post-body">
+    {{ if .Post.Metadata.Summary }}
+    <p>{{ .Post.Metadata.Summary }}</p>
+    {{ end }}
+    <!-- Table of content -->
+    <ol class="table-of-content">
+        {{ range $h := .Post.Headings }}
+        <li class="toc-item toc-level-{{ $h.Level }}">
+            <a href="#{{ $h.Id }}">
+                {{ $h.Title }}
+            </a>
+        </li>
+        {{ end }}
+    </ol>
+
     {{ .Post.Content }}
 </article>
+
+<!-- highlight.js -->
+<script src="/static/preformat-code.js"></script>
+
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/base16/gruvbox-dark-soft.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+<script>hljs.highlightAll();</script>
 {{ end }}
 
 {{ template "base.html" . }}

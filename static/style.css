@@ -205,14 +205,47 @@ main {
 }
 
 .post-body {
-  margin-top: 2rem;
+  /* margin-top: 2rem; */
   /* line-height: 1.6; */
   margin-bottom: 1.2rem;
+}
+
+.post-body > h1 {
+  font-size: 1.5em;
+  margin-bottom: 0;
+}
+
+.post-body > h2 {
+  font-size: 1em;
+  text-decoration: underline;
+  margin-bottom: 0;
+}
+
+
+.post-body > aside {
+  background-color: var(--color-dark1);
+  /* margin: 0 1rem; */
+  padding: 0 1rem;
+  border-left: 1px solid var(--color-border);
+}
+
+.post-body > img {
+  border: 1px solid var(--color-border);
+  border-radius: 3px;
+}
+
+.post-body > p {
+  margin-top: 0;
 }
 
 /* Table of Content */
 .table-of-content {
   list-style: none;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+
+
+  border-bottom: 1px solid var(--color-border);
 }
 
 /* SCSS is for nerds */
@@ -239,10 +272,27 @@ main {
 }
 
 code {
+  display: inline-block;
+  width: fit-content;
   font-family: var(--font-monospace);
   /* font-size: var(--font-size-base); */
   color: var(--color-light0_hard);
   background-color: var(--color-dark1);
   padding: 0 0.1em;
   margin: 0 0.1em;
+  white-space: pre;
+}
+
+pre {
+  display: flex;
+  /* justify-content: center; */
+  overflow-x: auto;
+  margin: 2rem 0;
+  tab-size: 4;
+}
+
+pre > code {
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 3px;
 }
