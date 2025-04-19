@@ -1,6 +1,8 @@
 {{ define "head" }}
 <meta property="og:title" content="{{ .Context.SiteMetadata.Title }}" />
 <meta property="og:url" content="https://{{ .Context.SiteMetadata.Hostname }}{{ .Url }}" />
+<meta property="og:image"
+    content="https://{{ .Context.SiteMetadata.Hostname }}{{ .Context.SiteMetadata.Author.AvatarHref }}" />
 {{ end }}
 
 
@@ -17,18 +19,23 @@
 <section class="blog-posts">
     <h1>Posts</h1>
     {{ range $name, $meta := .Posts }}
-    <article class="post">
-        <a href="/blog/{{$name}}">
-            <h3 class="post-title">{{ $meta.Title }}</h3>
-        </a>
-        <div class="post-meta">
-            <time datetime="{{ $meta.Timestamp.UTC }}" class="local-time"></time>.
-            {{ if $meta.Summary }}
-            <br>
-            {{ $meta.Summary }}
+    <a href="/blog/{{$name}}" style="text-decoration: none">
+        <article class="post">
+            {{ if $meta.ThumbnailHref }}
+            <img class="post-thumbnail" src="{{ $meta.ThumbnailHref }}" />
             {{ end }}
-        </div>
-    </article>
+            <div class="post-details">
+                <h3 class="post-title">{{ $meta.Title }}</h3>
+                <div class="post-meta">
+                    <time datetime="{{ $meta.Timestamp.UTC }}" class="local-time"></time>.
+                    {{ if $meta.Summary }}
+                    <br>
+                    {{ $meta.Summary }}
+                    {{ end }}
+                </div>
+            </div>
+        </article>
+    </a>
     {{ end }}
 </section>
 {{ end }}

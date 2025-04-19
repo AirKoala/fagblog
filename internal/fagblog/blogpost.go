@@ -20,9 +20,10 @@ type Heading struct {
 }
 
 type BlogPostMetadata struct {
-	Title     string
-	Timestamp time.Time
-	Summary   string
+	Title         string
+	Timestamp     time.Time
+	Summary       string
+	ThumbnailHref string
 }
 
 type BlogPost struct {
@@ -143,7 +144,7 @@ func getPostContentAndHeadings(path string) (string, []Heading, error) {
 		return "", []Heading{}, err
 	}
 
-	var buf bytes.Buffer;
+	var buf bytes.Buffer
 	html.Render(&buf, doc)
 
 	return buf.String(), headings, nil
